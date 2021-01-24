@@ -1,8 +1,9 @@
 import "./index.css";
+import { DataSet, Network } from "vis-network/standalone/esm/vis-network";
 
 class MyLibrary {
   constructor() {
-    console.log("Library constructor loaded.");
+    console.log(DataSet);
   }
 
   myMethod = () => {

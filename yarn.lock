@@ -5492,6 +5492,11 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
+vis-network@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/vis-network/-/vis-network-9.0.0.tgz#507162a8077c49f127664bf284c968f91f388652"
+  integrity sha512-g/rSWlYQc672O7IU73d8X2sNaoM67uvzdQo2kOD/nXoaYQBNMiIJVF2t6bl9L2S+SRIHkz2+gXafQ+1rqIeUIA==
+
 w3c-hr-time@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/w3c-hr-time/-/w3c-hr-time-1.0.2.tgz#0a89cdf5cc15822df9c360543676963e0cc308cd"
