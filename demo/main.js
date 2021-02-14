@@ -1,6 +1,8 @@
-let MyLibrary = window.MyLibrary.default;
-let myLibraryInstance = new MyLibrary();
+const eventGraphJSON = {};
 
-console.log("myLibraryInstance", myLibraryInstance);
+let EventGraph = window.EventGraph.default;
+let EventGraphInstance = new EventGraph();
 
-myLibraryInstance.myMethod();
+console.log("EventGraphInstance", EventGraphInstance);
+
+EventGraphInstance.init('#root');
