@@ -33,8 +33,6 @@ class EventGraph {
         smooth: false,
         arrows: {
           to: { enabled: true, scaleFactor: 1 },
-          // middle: { enabled: false, scaleFactor: 1 },
-          // from: { enabled: true, scaleFactor: 1 },
         },
       },
     });
