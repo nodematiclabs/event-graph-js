@@ -1,5 +1,5 @@
 {
-  "name": "event-graph-js",
+  "name": "@orenaksakal/event-graph-js",
   "version": "1.0.00",
   "description": "Open-source event graph creation library",
   "main": "build/index.js",

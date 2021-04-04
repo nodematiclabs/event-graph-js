@@ -1,6 +1,6 @@
 /*!
  * 
- *   event-graph-js v1.0.00
+ *   @orenaksakal/event-graph-js v1.0.00
  *   https://github.com/orenaksakal/event-graph-js
  *
  *   Copyright (c) Oren Aksakal (https://github.com/orenaksakal)
