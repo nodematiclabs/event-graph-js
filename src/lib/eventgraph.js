@@ -1,5 +1,4 @@
 import { DataSet, Network } from "vis-network/standalone/esm/vis-network";
-
 class EventGraph {
   constructor() {
     console.log(6);

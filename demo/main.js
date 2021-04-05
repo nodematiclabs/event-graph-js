@@ -6,15 +6,15 @@ const nodes = [
     id: 1,
     label: "RUN",
     shape: "circle",
-    color: "#111",
+    color: "yellow",
     fixed: true,
-    x: 60,
-    y: 10,
+    x: 624,
+    y: 303,
   },
-  { id: 2, label: "ENTER", x: 160, y: 100, fixed: true },
-  { id: 3, label: "START", x: 160, y: 200, fixed: true },
-  { id: 4, label: "ResetQ", x: 130, y: 100, fixed: true },
-  { id: 5, label: "LEAVE", x: 0, y: 100, fixed: true },
+  { id: 2, label: "ENTER", x: 622, y: 456, fixed: true },
+  { id: 3, label: "START", x: 735, y: 446, fixed: true },
+  { id: 4, label: "ResetQ", x: 825, y: 304, fixed: true },
+  { id: 5, label: "LEAVE", x: 730, y: 542, fixed: true },
 ];
 
 const edges = [
