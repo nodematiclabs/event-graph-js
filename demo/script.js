@@ -6,6 +6,7 @@ const fetchJson = () => {
     .then((input) => input.json())
     .then((result) => result);
 };
+
 const initiateEventGraph = (input) => {
   EventGraphInstance.init("#root", input, {
     interaction: { dragNodes: true, dragView: false },

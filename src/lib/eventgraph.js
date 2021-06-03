@@ -20,7 +20,7 @@ class EventGraph {
   };
 
   gatherEdges = (input) => {
-    let edges = [];
+    const edges = [];
     const items = input.map((item) => {
       return {
         from: item.expression,
@@ -53,6 +53,7 @@ class EventGraph {
 
     network.on("click", (params) => {
       console.log(params);
+      console.log(network.getPositions());
     });
 
     setTimeout(function () {
