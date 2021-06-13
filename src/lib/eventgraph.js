@@ -1,21 +1,72 @@
 import { DataSet, Network } from "vis-network/standalone/esm/vis-network";
 
 class EventGraph {
-  constructor() {
-    console.log("event-graph-js initiated.");
-  }
-
   gatherNodes = (input) => {
     return input.map((item) => {
       return {
         id: item.expression,
         label: item.expression,
         shape: "circle",
-        color: "rgb(158 158 158)",
+        color: "#e6e6e6",
         borderWidth: "2",
         widthConstraint: { maximum: 50 },
         margin: 15,
+        ...item,
       };
+    });
+  };
+
+  drawEdgeValues = (edges, ctx, network) => {
+    edges.forEach((node) => {
+      var edgePosition = network.getPositions([node.id]);
+      ctx.fillStyle = "black";
+      ctx.font = "14px helvetica";
+
+      // node?.routine?.state_transition?.phase &&
+      //   ctx.fillText(
+      //     `phase = ${node.routine.state_transition.phase}`,
+      //     nodePosition[node.id].x - 60,
+      //     nodePosition[node.id].y + 60
+      //   );
+      // node?.routine?.state_transition?.queue &&
+      //   ctx.fillText(
+      //     `queue = ${node.routine.state_transition.queue}`,
+      //     nodePosition[node.id].x - 60,
+      //     nodePosition[node.id].y + 77
+      //   );
+      // node?.routine?.state_transition?.sigma &&
+      //   ctx.fillText(
+      //     `sigma = ${node.routine.state_transition.sigma}`,
+      //     nodePosition[node.id].x - 60,
+      //     nodePosition[node.id].y + 94
+      //   );
+    });
+  };
+
+  drawStateTransitions = (nodes, ctx, network) => {
+    nodes.forEach((node) => {
+      var nodePosition = network.getPositions([node.id]);
+      ctx.fillStyle = "black";
+      ctx.font = "14px helvetica";
+
+      node?.routine?.state_transition?.phase &&
+        ctx.fillText(
+          `phase = ${node.routine.state_transition.phase}`,
+          nodePosition[node.id].x - 60,
+          nodePosition[node.id].y + 60
+        );
+      node?.routine?.state_transition?.queue &&
+        ctx.fillText(
+          `queue = ${node.routine.state_transition.queue}`,
+          nodePosition[node.id].x - 60,
+          nodePosition[node.id].y + 77
+        );
+      node?.routine?.state_transition?.sigma &&
+        ctx.fillText(
+          `sigma = ${node.routine.state_transition.sigma}`,
+          nodePosition[node.id].x - 60,
+          nodePosition[node.id].y + 94
+        );
     });
   };
 
@@ -33,11 +84,26 @@ class EventGraph {
       const { from } = item;
 
       item.schedules.forEach((schedule) => {
-        edges.push({ from, to: schedule.expression });
+        edges.push({
+          from,
+          to: schedule.expression,
+          color: "black",
+          label: schedule.condition,
+          labelFrom: "asd",
+          labelTo: "xx",
+          font: { align: "top" },
+        });
       });
 
       item.cancellations.forEach((schedule) => {
-        edges.push({ from, to: schedule.expression, dashes: true });
+        edges.push({
+          from,
+          to: schedule.expression,
+          dashes: true,
+          color: "black",
+          label: schedule.condition,
+          font: { align: "top" },
+        });
       });
     });
 
@@ -51,9 +117,9 @@ class EventGraph {
     const data = { nodes: new DataSet(nodes), edges: new DataSet(edges) };
     const network = new Network(element, data, options);
 
-    network.on("click", (params) => {
-      console.log(params);
-      console.log(network.getPositions());
+    network.on("beforeDrawing", (ctx) => {
+      this.drawStateTransitions(nodes, ctx, network);
+      this.drawEdgeValues(edges, ctx, network);
     });
 
     setTimeout(function () {
