@@ -6,7 +6,7 @@ Event Graphs are a way of graphically representing discrete-event simulation mod
 
 **eventgraph.js** is built for enabling community to easily create and use event graphs to represent, analyze and design dynamic systems. It provides a foundation to discrete event simulation design models.
 
-## Functioanlities
+## Functionalities
 
 - Creation of event graph from configuration/definition JSON
 - Modification of event graph with JavaScript
