@@ -99,7 +99,6 @@ class EventGraph {
 
     network.on("beforeDrawing", (ctx) => {
       this.drawStateTransitions(nodes, ctx, network);
-      // this.drawEdgeValues(edges, ctx, network);
     });
 
     setTimeout(function () {
