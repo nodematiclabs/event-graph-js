@@ -4,11 +4,11 @@ const EventGraphInstance = new EventGraph();
 const fetchJson = () => {
   return fetch("./input.json")
     .then((input) => input.json())
-    .then((result) => result);
+    .then((data) => data);
 };
 
-const initiateEventGraph = (input) => {
-  EventGraphInstance.init("#root", input, {
+const initiateEventGraph = (data) => {
+  EventGraphInstance.init("#root", data, {
     interaction: { dragNodes: true, dragView: false },
     physics: false,
     edges: {

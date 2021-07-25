@@ -18,33 +18,6 @@ class EventGraph {
     });
   };
 
-  // drawEdgeValues = (edges, ctx, network) => {
-  //   edges.forEach((node) => {
-  //     var edgePosition = network.getPositions([node.id]);
-  //     ctx.fillStyle = "black";
-  //     ctx.font = "14px helvetica";
-
-  //     // node?.routine?.state_transition?.phase &&
-  //     //   ctx.fillText(
-  //     //     `phase = ${node.routine.state_transition.phase}`,
-  //     //     nodePosition[node.id].x - 60,
-  //     //     nodePosition[node.id].y + 60
-  //     //   );
-  //     // node?.routine?.state_transition?.queue &&
-  //     //   ctx.fillText(
-  //     //     `queue = ${node.routine.state_transition.queue}`,
-  //     //     nodePosition[node.id].x - 60,
-  //     //     nodePosition[node.id].y + 77
-  //     //   );
-  //     // node?.routine?.state_transition?.sigma &&
-  //     //   ctx.fillText(
-  //     //     `sigma = ${node.routine.state_transition.sigma}`,
-  //     //     nodePosition[node.id].x - 60,
-  //     //     nodePosition[node.id].y + 94
-  //     //   );
-  //   });
-  // };
-
   drawStateTransitions = (nodes, ctx, network) => {
     nodes.forEach((node) => {
       var nodePosition = network.getPositions([node.id]);
@@ -81,20 +54,22 @@ class EventGraph {
         from: item.expression,
         schedules: item.routine.scheduling || [],
         cancellations: item.routine.cancelling || [],
+        parameters: item.parameters,
       };
     });
 
     items.forEach((item) => {
-      const { from } = item;
+      const { from, parameters } = item;
 
       item.schedules.forEach((schedule) => {
+        const parameter = parameters ? ` [${parameters.join(",")}] ` : "";
+        const label = schedule.condition ? schedule.condition : "";
+
         edges.push({
           from,
           to: schedule.expression,
           color: "black",
-          label: schedule.condition,
-          labelFrom: "asd",
-          labelTo: "xx",
+          label: `${label} ${parameter}`,
           font: { align: "top" },
         });
       });
@@ -115,7 +90,6 @@ class EventGraph {
   };
 
   init = (selector, input, options) => {
-    console.log("input", input);
     const nodes = this.gatherNodes(input);
     const edges = this.gatherEdges(input, nodes);
     const element = document.querySelector(selector);

@@ -22,7 +22,7 @@ You can install event-ghraph-js by running
 example usage after installation:
  ```
 // create an instance
- const  EventGraphInstance = new  EventGraph();
+ const  EventGraphInstance = new EventGraph();
 
 // node definitions
 const  nodes = [
