@@ -71,6 +71,7 @@ class EventGraph {
           color: "black",
           label: `${label} ${parameter}`,
           font: { align: "top" },
+          smooth: { type: "curvedCCW", roundness: 0.2 },
         });
       });
 

@@ -12,9 +12,9 @@ const initiateEventGraph = (data) => {
     interaction: { dragNodes: true, dragView: false },
     physics: false,
     edges: {
-      smooth: false,
+      // smooth: false,
       arrows: {
-        to: { enabled: true, scaleFactor: 1 },
+        to: { enabled: true, scaleFactor: 0.5 },
       },
     },
   });
