@@ -8,7 +8,6 @@ class EventGraph {
         label: `${item.expression} ${
           item.parameters ? `(${item.parameters.join(",")})` : ""
         } ${item.routine?.yield ? `[${item.routine?.yield}]` : ""}`,
-        // shape: "circle",
         color: "#e6e6e6",
         borderWidth: "2",
         widthConstraint: { maximum: 75 },
@@ -28,21 +27,21 @@ class EventGraph {
         ctx.fillText(
           `phase = ${node.routine.state_transition.phase}`,
           nodePosition[node.id].x - 40,
-          nodePosition[node.id].y + 65
+          nodePosition[node.id].y + 70
         );
 
       node?.routine?.state_transition?.sigma &&
         ctx.fillText(
           `sigma = ${node.routine.state_transition.sigma}`,
           nodePosition[node.id].x - 40,
-          nodePosition[node.id].y + 82
+          nodePosition[node.id].y + 85
         );
 
       node?.routine?.state_transition?.queue &&
         ctx.fillText(
           `queue = ${node.routine.state_transition.queue}`,
           nodePosition[node.id].x - 40,
-          nodePosition[node.id].y + 99
+          nodePosition[node.id].y + 100
         );
     });
   };
@@ -54,27 +53,28 @@ class EventGraph {
         from: item.expression,
         schedules: item.routine.scheduling || [],
         cancellations: item.routine.cancelling || [],
-        parameters: item.parameters,
       };
     });
 
     items.forEach((item) => {
-      const { from, parameters } = item;
+      const { from } = item;
 
       item.schedules.forEach((schedule) => {
-        const parameter = parameters ? ` [${parameters.join(",")}] ` : "";
         const label = schedule.condition ? schedule.condition : "";
-        const sigma = schedule.delay ? "sigma" : "";
+        const labelFrom = schedule.delay ? "sigma" : "";
+        const labelTo = schedule.parameters
+          ? ` [${schedule.parameters.join(",")}] `
+          : "";
 
         edges.push({
           from,
           to: schedule.expression,
           color: "black",
-          label: label,
-          smooth: { type: "curvedCCW", roundness: 0.1 },
-          labelFrom: sigma,
-          options: { font: { size: 16 } },
-          labelTo: parameter,
+          label,
+          smooth: { type: "curvedCCW", roundness: 0.15 },
+          labelFrom,
+          options: { font: { size: 14 } },
+          labelTo,
         });
       });
 
@@ -85,9 +85,7 @@ class EventGraph {
           dashes: true,
           color: "black",
           label: schedule.condition,
-          options: { font: { align: "top", size: 16 } },
-          labelFrom: "from",
-          labelTo: "to",
+          options: { font: { align: "top", size: 14 } },
         });
       });
     });
@@ -105,7 +103,6 @@ class EventGraph {
 
     network.on("beforeDrawing", (ctx) => {
       this.drawStateTransitions(nodes, ctx, network);
-      // this.drawSigmas(nodes, ctx, network);
     });
 
     setTimeout(function () {
