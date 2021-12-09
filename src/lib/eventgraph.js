@@ -1,4 +1,4 @@
-import { DataSet, Network } from "vis-network/standalone/esm/vis-network";
+import { DataSet, Network } from "vnwl/standalone/esm/vis-network";
 
 class EventGraph {
   gatherNodes = (input) => {
@@ -8,7 +8,7 @@ class EventGraph {
         label: `${item.expression} ${
           item.parameters ? `(${item.parameters.join(",")})` : ""
         } ${item.routine?.yield ? `[${item.routine?.yield}]` : ""}`,
-        shape: "circle",
+        // shape: "circle",
         color: "#e6e6e6",
         borderWidth: "2",
         widthConstraint: { maximum: 75 },
@@ -20,28 +20,28 @@ class EventGraph {
 
   drawStateTransitions = (nodes, ctx, network) => {
     nodes.forEach((node) => {
-      var nodePosition = network.getPositions([node.id]);
+      const nodePosition = network.getPositions([node.id]);
       ctx.fillStyle = "black";
       ctx.font = "14px helvetica";
 
       node?.routine?.state_transition?.phase &&
         ctx.fillText(
           `phase = ${node.routine.state_transition.phase}`,
-          nodePosition[node.id].x - 60,
+          nodePosition[node.id].x - 40,
           nodePosition[node.id].y + 65
         );
 
       node?.routine?.state_transition?.sigma &&
         ctx.fillText(
           `sigma = ${node.routine.state_transition.sigma}`,
-          nodePosition[node.id].x - 60,
+          nodePosition[node.id].x - 40,
           nodePosition[node.id].y + 82
         );
 
       node?.routine?.state_transition?.queue &&
         ctx.fillText(
           `queue = ${node.routine.state_transition.queue}`,
-          nodePosition[node.id].x - 60,
+          nodePosition[node.id].x - 40,
           nodePosition[node.id].y + 99
         );
     });
@@ -64,14 +64,17 @@ class EventGraph {
       item.schedules.forEach((schedule) => {
         const parameter = parameters ? ` [${parameters.join(",")}] ` : "";
         const label = schedule.condition ? schedule.condition : "";
+        const sigma = schedule.delay ? "sigma" : "";
 
         edges.push({
           from,
           to: schedule.expression,
           color: "black",
-          label: `${label} ${parameter}`,
-          font: { align: "top" },
-          smooth: { type: "curvedCCW", roundness: 0.2 },
+          label: label,
+          smooth: { type: "curvedCCW", roundness: 0.1 },
+          labelFrom: sigma,
+          options: { font: { size: 16 } },
+          labelTo: parameter,
         });
       });
 
@@ -82,7 +85,9 @@ class EventGraph {
           dashes: true,
           color: "black",
           label: schedule.condition,
-          font: { align: "top" },
+          options: { font: { align: "top", size: 16 } },
+          labelFrom: "from",
+          labelTo: "to",
         });
       });
     });
@@ -93,12 +98,14 @@ class EventGraph {
   init = (selector, input, options) => {
     const nodes = this.gatherNodes(input);
     const edges = this.gatherEdges(input, nodes);
+
     const element = document.querySelector(selector);
     const data = { nodes: new DataSet(nodes), edges: new DataSet(edges) };
     const network = new Network(element, data, options);
 
     network.on("beforeDrawing", (ctx) => {
       this.drawStateTransitions(nodes, ctx, network);
+      // this.drawSigmas(nodes, ctx, network);
     });
 
     setTimeout(function () {
