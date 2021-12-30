@@ -8,7 +8,7 @@ class EventGraph {
         label: `${item.expression} ${
           item.parameters ? `(${item.parameters.join(",")})` : ""
         } ${item.routine?.yield ? `[${item.routine?.yield}]` : ""}`,
-        color: "#e6e6e6",
+        color: "#baf2e9",
         borderWidth: "2",
         widthConstraint: { maximum: 75 },
         margin: 15,
