@@ -10,7 +10,8 @@ class EventGraph {
         } ${item.routine?.yield ? `[${item.routine?.yield}]` : ""}`,
         color: "#baf2e9",
         borderWidth: "2",
-        widthConstraint: { maximum: 75 },
+        widthConstraint: 75,
+        shape: "circle",
         margin: 15,
         ...item,
       };
@@ -107,7 +108,7 @@ class EventGraph {
 
     setTimeout(function () {
       data.nodes.forEach((node) => {
-        data.nodes.update({ id: node.id, fixed: false });
+        data.nodes.update({ id: node.id, fixed: false, size: 55 });
       });
     });
   };
