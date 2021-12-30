@@ -72,9 +72,12 @@ class EventGraph {
           to: schedule.expression,
           color: "black",
           label,
-          smooth: { type: "curvedCCW", roundness: 0.15 },
+          smooth: {
+            type: "discrete",
+            roundness: 1,
+          },
           labelFrom,
-          options: { font: { size: 14 } },
+          options: { font: { align: "top", size: 14 } },
           labelTo,
         });
       });
