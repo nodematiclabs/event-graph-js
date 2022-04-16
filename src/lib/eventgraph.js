@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-import { DataSet, Network } from "vis-network/standalone/esm/vis-network";
-class EventGraph {
-  constructor() {
-    console.log(6);
-  }
-
-  init = (selector, nodes, edges, options) => {
-=======
 import { DataSet, Network } from "vnwl/standalone/esm/vis-network";
 
 class EventGraph {
@@ -110,27 +101,17 @@ class EventGraph {
     const nodes = this.gatherNodes(input);
     const edges = this.gatherEdges(input, nodes);
 
->>>>>>> develop
     const element = document.querySelector(selector);
     const data = { nodes: new DataSet(nodes), edges: new DataSet(edges) };
     const network = new Network(element, data, options);
 
-<<<<<<< HEAD
-    network.on("click", (params) => {
-      console.log(params);
-=======
     network.on("beforeDrawing", (ctx) => {
       this.drawStateTransitions(nodes, ctx, network);
->>>>>>> develop
     });
 
     setTimeout(function () {
       data.nodes.forEach((node) => {
-<<<<<<< HEAD
-        data.nodes.update({ id: node.id, fixed: false });
-=======
         data.nodes.update({ id: node.id, fixed: false, size: 55 });
->>>>>>> develop
       });
     });
   };
