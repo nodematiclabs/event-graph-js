@@ -1,0 +1,144 @@
+[
+  {
+    "expression": "Add To Batch",
+    "parameters": ["e", "x"],
+    "x": -1,
+    "y": -20,
+    "routine": {
+      "state_transition": {
+        "phase": "\"batching\"",
+        "sigma": "sigma - e",
+        "queue": "{}"
+      },
+      "scheduling": [
+        {
+          "expression": "Prepare Release",
+          "delay": "sigma"
+        }
+      ]
+    }
+  },
+  {
+    "expression": "Start Batch",
+    "parameters": ["e", "x"],
+    "x": 3,
+    "y": -249,
+    "routine": {
+      "state_transition": {
+        "phase": "\"batching\"",
+        "sigma": "t_max",
+        "queue": "{}"
+      },
+      "scheduling": [
+        {
+          "expression": "Prepare Release",
+          "delay": "sigma"
+        }
+      ]
+    }
+  },
+  {
+    "expression": "Fill Batch",
+    "parameters": ["e", "x"],
+    "x": 3,
+    "y": 207,
+    "routine": {
+      "state_transition": {
+        "phase": "\"release\"",
+        "sigma": "0",
+        "queue": "{}"
+      },
+      "scheduling": [
+        {
+          "expression": "Prepare Release",
+          "delay": "sigma"
+        }
+      ]
+    }
+  },
+  {
+    "expression": "Release Full Queue",
+    "x": 459,
+    "y": -308,
+    "routine": {
+      "state_transition": {
+        "phase": "\"passive\"",
+        "sigma": "INFINITY",
+        "queue": "{}"
+      },
+      "scheduling": [
+        {
+          "expression": "Prepare Release",
+          "delay": "sigma"
+        }
+      ],
+      "yield": "lambda_1"
+    }
+  },
+  {
+    "expression": "Release Partial Queue",
+    "x": 438,
+    "y": 137,
+    "routine": {
+      "state_transition": {
+        "phase": "\"batching\"",
+        "sigma": "t_max",
+        "queue": "{}"
+      },
+      "scheduling": [
+        {
+          "expression": "Prepare Release",
+          "delay": "sigma"
+        }
+      ],
+      "yield": "lambda_1"
+    }
+  },
+  {
+    "expression": "Receive Jobs",
+    "parameters": ["e", "x"],
+    "x": -291,
+    "y": -12,
+    "routine": {
+      "scheduling": [
+        {
+          "expression": "Add To Batch",
+          "condition": "B",
+          "parameters": ["e", "x"]
+        },
+        {
+          "expression": "Start Batch",
+          "condition": "A",
+          "parameters": ["e", "x"]
+        },
+        {
+          "expression": "Fill Batch",
+          "condition": "C",
+          "parameters": ["e", "x"]
+        }
+      ],
+      "cancelling": [
+        {
+          "expression": "Prepare Release"
+        }
+      ]
+    }
+  },
+  {
+    "expression": "Prepare Release",
+    "x": 274,
+    "y": -48,
+    "routine": {
+      "scheduling": [
+        {
+          "expression": "Release Full Queue",
+          "condition": "D"
+        },
+        {
+          "expression": "Release Partial Queue",
+          "condition": "E"
+        }
+      ]
+    }
+  }
+]
