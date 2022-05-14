@@ -9,7 +9,11 @@ const fetchJson = () => {
 
 const initiateEventGraph = (data) => {
   EventGraphInstance.init("#root", data, {
-    interaction: { dragNodes: true, dragView: false },
+    interaction: {
+      dragNodes: true,
+      dragView: true,
+      zoomView: false,
+    },
     physics: false,
     edges: {
       arrows: {
